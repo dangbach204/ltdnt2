@@ -177,7 +177,7 @@ class HomePage extends StatelessWidget {
 class MenuCard extends StatelessWidget {
   final String title;
   final int price;
-  final String imageName; // 👉 thay vì IconData
+  final String imageName;
   final Color color;
 
   const MenuCard({
@@ -203,26 +203,39 @@ class MenuCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              'assets/images/$imageName',
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  'assets/images/$imageName',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+              ),
 
-          const SizedBox(height: 8),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '$price VNĐ',
-            style: const TextStyle(fontSize: 16, color: Colors.grey),
+              const SizedBox(height: 8),
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '$price VNĐ',
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           ElevatedButton.icon(
