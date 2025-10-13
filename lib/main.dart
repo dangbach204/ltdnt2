@@ -9,7 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(
+      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
 
@@ -17,218 +20,249 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final bool isWide = screenWidth > 600;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 239, 226, 174),
       appBar: AppBar(
-        title: const Text('Flutter Layout demo'),
+        title: const Text('🍜 Menu 🍜'),
         centerTitle: true,
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.orangeAccent,
       ),
       drawer: Drawer(
         child: ListView(
-          children: const [
+          children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.lightBlueAccent),
-              child: Text('This is Drawer Header!!!'),
+              decoration: BoxDecoration(color: Colors.orangeAccent),
+              child: Center(
+                child: Text(
+                  'Danh mục món ăn',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
-            ListTile(title: Text('Option 1')),
-            ListTile(title: Text('Option 2')),
+            ListTile(
+              leading: Icon(Icons.restaurant_menu_outlined),
+              title: Text('Món chính'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Xem món chính')));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.cake_outlined),
+              title: Text('Tráng miệng'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Xem tráng miệng')));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.local_drink_outlined),
+              title: Text('Đồ uống'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Xem đồ uống')));
+              },
+            ),
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              alignment: Alignment.center,
-              height: 50,
-              child: Text(
-                'Container, padding and SizedBox Demo',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green[300],
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  '🍽️ Thực đơn hôm nay 🍽️',
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 60,
-                    child: const Text('This is Container 1!'),
-                  ),
-                  const SizedBox(width: 50),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: 60,
-                    child: const Text('This is Container 2!'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 50,
-              child: Text(
-                'Column and Row Demo!',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green[300],
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.purple),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Row demo!!!',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.red,
-                        child: Center(child: Text('A')),
+            isWide
+                ? Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.center,
+                    children: const [
+                      MenuCard(
+                        title: 'Phở bò',
+                        price: 45000,
+                        imageName: 'phobo.webp',
+                        color: Colors.redAccent,
                       ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.green,
-                        child: Center(child: Text('B')),
+                      MenuCard(
+                        title: 'Bún chả',
+                        price: 40000,
+                        imageName: 'buncha.webp',
+                        color: Colors.redAccent,
                       ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        color: Colors.blue,
-                        child: Center(child: Text('C')),
+                      MenuCard(
+                        title: 'Bún bò',
+                        price: 45000,
+                        imageName: 'bunbo.jpg',
+                        color: Colors.redAccent,
+                      ),
+                      MenuCard(
+                        title: 'Cơm tấm',
+                        price: 35000,
+                        imageName: 'comtam.jpg',
+                        color: Colors.redAccent,
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: const [
+                      MenuCard(
+                        title: 'Phở bò',
+                        price: 45000,
+                        imageName: 'phobo.webp',
+                        color: Colors.redAccent,
+                      ),
+                      SizedBox(height: 16),
+                      MenuCard(
+                        title: 'Bún chả',
+                        price: 40000,
+                        imageName: 'buncha.webp',
+                        color: Colors.redAccent,
+                      ),
+                      SizedBox(height: 16),
+                      MenuCard(
+                        title: 'Bún bò',
+                        price: 45000,
+                        imageName: 'bunbo.jpg',
+                        color: Colors.redAccent,
+                      ),
+                      SizedBox(height: 16),
+                      MenuCard(
+                        title: 'Cơm tấm',
+                        price: 35000,
+                        imageName: 'comtam.jpg',
+                        color: Colors.redAccent,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Column demo!!!',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    height: 200,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          color: Colors.red,
-                          child: Center(child: Text('A')),
-                        ),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          color: Colors.green,
-                          child: Center(child: Text('B')),
-                        ),
-                        Container(
-                          width: 50,
-                          height: 50,
-                          color: Colors.blue,
-                          child: Center(child: Text('C')),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 50,
-              child: Text(
-                'Responsive design với MediaQuery!',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green[300],
-                ),
-              ),
-            ),
-            Text(
-              'Kích thước màn hình: ${screenWidth.toStringAsFixed(0)}x${screenHeight.toStringAsFixed(0)}',
-            ),
-            if (screenWidth < 500)
-              Column(
-                children: [
-                  Container(
-                    color: Colors.blue[100],
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(bottom: 20),
-                    child: const Text('Container 1'),
-                  ),
-                  Container(
-                    color: Colors.green[100],
-                    padding: const EdgeInsets.all(16),
-                    child: const Text('Container 2'),
-                  ),
-                ],
-              )
-            else
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    color: Colors.blue[100],
-                    padding: const EdgeInsets.all(16),
-                    child: const Text('Container 1'),
-                  ),
-                  Container(
-                    color: Colors.green[100],
-                    padding: const EdgeInsets.all(16),
-                    child: const Text('Container 2'),
-                  ),
-                ],
-              ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.deepOrange,
+        icon: const Icon(Icons.add_shopping_cart_outlined),
+        label: const Text('Đặt món', style: TextStyle(color: Colors.white)),
         onPressed: () {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Pressed FloatingActionButton'),
+              content: Text('Đặt món thành công! Cảm ơn bạn ❤️'),
               duration: Duration(seconds: 1),
             ),
           );
         },
-        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class MenuCard extends StatelessWidget {
+  final String title;
+  final int price;
+  final String imageName;
+  final Color color;
+
+  const MenuCard({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.imageName,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(color: Colors.grey, blurRadius: 8, offset: Offset(0, 6)),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  'assets/images/$imageName',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '$price VNĐ',
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: color,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Đã thêm $title vào giỏ hàng'),
+                  duration: Duration(seconds: 1),
+                ),
+              );
+            },
+            icon: const Icon(Icons.add),
+            label: const Text(
+              'Thêm món',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
