@@ -201,7 +201,6 @@ class MenuCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -218,7 +217,6 @@ class MenuCard extends StatelessWidget {
 
               const SizedBox(height: 8),
               Column(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     title,
@@ -253,7 +251,7 @@ class MenuCard extends StatelessWidget {
                 ),
               );
             },
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.add_alert),
             label: const Text(
               'Thêm món',
               style: TextStyle(
